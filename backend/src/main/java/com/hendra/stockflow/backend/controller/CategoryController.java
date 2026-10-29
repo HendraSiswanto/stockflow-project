@@ -5,6 +5,7 @@ import com.hendra.stockflow.backend.model.dto.request.CategoryRequest;
 import com.hendra.stockflow.backend.model.dto.response.CategoryResponse;
 import com.hendra.stockflow.backend.model.entity.Category;
 import com.hendra.stockflow.backend.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ public class CategoryController {
 
     private CategoryService categoryService;
 
+    @Autowired
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }

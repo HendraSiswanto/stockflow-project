@@ -32,7 +32,7 @@ public class Product {
     @Column(name = "is_active")
     private Boolean isActive = true;
 
-    @ManyToOne(cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
