@@ -27,9 +27,9 @@ public class Product {
     private Double salePrice;
     @Column(name = "in_stock")
     private Integer inStock;
-    @Column(name = "minimum_stock")
-    private Integer minimumStock = 2;
-    @Column(name = "is_active")
+    @Column(columnDefinition = "integer default 2",name = "minimum_stock")
+    private Integer minimumStock;
+    @Column(columnDefinition = "integer default 25")
     private Boolean isActive = true;
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
