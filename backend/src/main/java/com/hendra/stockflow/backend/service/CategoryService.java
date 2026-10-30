@@ -15,9 +15,9 @@ import java.util.Optional;
 @Service
 public class CategoryService {
 
+    @Autowired
     private CategoryRepository categoryRepository;
 
-    @Autowired
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
@@ -42,6 +42,14 @@ public class CategoryService {
 
             return "Deleted Category with id : " + categoryId;
 
+    }
+    public Category findById(Long categoryId){
+
+        if (categoryRepository.findById(categoryId).isPresent()){
+            return categoryRepository.findById(categoryId).get();
+        }else {
+            throw new CategoryException("Category with + "+ categoryId +" not found");
+        }
 
     }
 

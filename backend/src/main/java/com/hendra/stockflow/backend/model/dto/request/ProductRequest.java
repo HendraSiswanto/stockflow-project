@@ -17,6 +17,8 @@ public class ProductRequest {
     private Double salePrice;
     @NotNull
     private Integer inStock;
+    @NotNull
+    private Integer minimumStock;
     @NotBlank
-    private Category categoryId;
+    private Long categoryId;
 }
