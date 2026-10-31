@@ -1,5 +1,8 @@
 package com.hendra.stockflow.backend.service;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import com.hendra.stockflow.backend.exception.CategoryException;
 import com.hendra.stockflow.backend.model.dto.request.CategoryRequest;
 import com.hendra.stockflow.backend.model.dto.response.CategoryResponse;
@@ -9,21 +12,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.DataInput;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CategoryService {
 
-    @Autowired
-    private CategoryRepository categoryRepository;
 
+    private CategoryRepository categoryRepository;
+    @Autowired
     public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
-    public Category createNewCategory(CategoryRequest categoryRequest){
-
+    public Category createNewCategory(String input){
+        ObjectMapper mapper = new ObjectMapper();
+        new CategoryRequest();
+        CategoryRequest categoryRequest;
+        try {
+            categoryRequest = mapper.readValue(input,CategoryRequest.class);
+        }catch (Exception e){
+            throw new CategoryException("Bad Request");
+        }
         Category category = new Category();
         if (categoryRepository.findByName(categoryRequest.getName()).isPresent()){
             throw new CategoryException("Category is already initialize");

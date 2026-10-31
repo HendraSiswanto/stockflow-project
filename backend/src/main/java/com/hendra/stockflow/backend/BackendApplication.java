@@ -1,5 +1,7 @@
 package com.hendra.stockflow.backend;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,6 +10,9 @@ public class BackendApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
+
+		ObjectMapper mapper= new ObjectMapper() ;
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,true);
 	}
 
 }

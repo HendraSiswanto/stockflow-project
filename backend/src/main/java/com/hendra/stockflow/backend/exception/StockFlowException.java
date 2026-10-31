@@ -15,4 +15,10 @@ public class StockFlowException{
         errorResponse.setErrorMessage(exc.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleProductException(ProductException exc){
+        ErrorResponse errorResponse = new ErrorResponse();
+        errorResponse.setErrorMessage(exc.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 }

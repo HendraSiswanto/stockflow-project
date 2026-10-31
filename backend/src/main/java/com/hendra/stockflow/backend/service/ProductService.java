@@ -1,5 +1,6 @@
 package com.hendra.stockflow.backend.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hendra.stockflow.backend.exception.ProductException;
 import com.hendra.stockflow.backend.model.dto.request.ProductRequest;
 import com.hendra.stockflow.backend.model.entity.Category;
@@ -22,20 +23,35 @@ public class ProductService {
         this.categoryRepository = categoryRepository;
     }
 
-    public Product createProduct(ProductRequest productRequest){
+    public Product createProduct(String input) {
+        ProductRequest productRequest;
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            productRequest = mapper.readValue(input, ProductRequest.class);
+        } catch (Exception e) {
+            throw new ProductException("Bad request");
+        }
 
-        if (categoryRepository.findById(productRequest.getCategoryId()).isPresent()){
+        if (productRequest.getMinimumStock() == null) {
+            productRequest.setMinimumStock(2);
+        }
 
-            Product newProduct = new Product();
-            newProduct.setName(productRequest.getName());
-            newProduct.setPrice(productRequest.getPrice());
-            newProduct.setSalePrice(productRequest.getSalePrice());
-            newProduct.setInStock(productRequest.getInStock());
-            newProduct.setCategory(categoryRepository.findById(productRequest.getCategoryId()).get());
-            newProduct.setMinimumStock(productRequest.getMinimumStock());
+        if (categoryRepository.findById(productRequest.getCategoryId()).isPresent()) {
+
+            if (productRepository.findByName(productRequest.getName()).isPresent()) {
+                throw new ProductException("Product is already initialize");
+            }
+            Product newProduct = Product.builder().name(productRequest.getName()).price(productRequest.getPrice()).salePrice(productRequest.getSalePrice()).inStock(productRequest.getInStock()).minimumStock(productRequest.getMinimumStock()).category(categoryRepository.findById(productRequest.getCategoryId()).get()).build();
             productRepository.save(newProduct);
             return newProduct;
 
-        }else throw new ProductException("Category not found with id :"+productRequest.getCategoryId());
+        } else throw new ProductException("Category not found with id :" + productRequest.getCategoryId());
+    }
+    public Product findById(Long productId){
+
+        if (productRepository.findById(productId).isPresent()){
+            return productRepository.findById(productId).get();
+        }else throw new ProductException("Product with "+  productId +" not found");
+
     }
 }

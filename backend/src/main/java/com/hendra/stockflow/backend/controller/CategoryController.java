@@ -20,7 +20,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/categories")
-    public ResponseEntity<CategoryResponse> insertCategory(@RequestBody CategoryRequest categoryRequest){
+    public ResponseEntity<CategoryResponse> insertCategory(@RequestBody String categoryRequest){
         Category newCategory = categoryService.createNewCategory(categoryRequest);
         CategoryResponse categoryResponse = CategoryResponse.builder().id(newCategory.getId()).name(newCategory.getName()).build();
         return new ResponseEntity<>(categoryResponse, HttpStatus.OK);
