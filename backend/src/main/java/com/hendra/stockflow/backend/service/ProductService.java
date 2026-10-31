@@ -32,7 +32,7 @@ public class ProductService {
             throw new ProductException("Bad request");
         }
 
-        if (productRequest.getMinimumStock() == null) {
+        if (productRequest.getMinimumStock() == null ) {
             productRequest.setMinimumStock(2);
         }
 
@@ -41,7 +41,7 @@ public class ProductService {
             if (productRepository.findByName(productRequest.getName()).isPresent()) {
                 throw new ProductException("Product is already initialize");
             }
-            Product newProduct = Product.builder().name(productRequest.getName()).price(productRequest.getPrice()).salePrice(productRequest.getSalePrice()).inStock(productRequest.getInStock()).minimumStock(productRequest.getMinimumStock()).category(categoryRepository.findById(productRequest.getCategoryId()).get()).build();
+            Product newProduct = Product.builder().name(productRequest.getName()).price(productRequest.getPrice()).salePrice(productRequest.getSalePrice()).inStock(productRequest.getInStock()).minimumStock(productRequest.getMinimumStock()).category(categoryRepository.findById(productRequest.getCategoryId()).get()).isActive(true).build();
             productRepository.save(newProduct);
             return newProduct;
 
