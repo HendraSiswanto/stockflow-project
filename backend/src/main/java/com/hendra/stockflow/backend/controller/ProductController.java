@@ -33,4 +33,10 @@ public class ProductController {
     public ResponseEntity<Product> updateData(@PathVariable("product-id") Long productId, @RequestBody String input){
         return new ResponseEntity<>(productService.updateData(productId,input),HttpStatus.OK);
     }
+
+    @PatchMapping("/products/{product-id}/status")
+    public ResponseEntity<Product> changeStatus(@PathVariable("product-id") Long productId){
+        return new ResponseEntity<>(productService.changeStatus(productId),HttpStatus.OK);
+    }
+
 }

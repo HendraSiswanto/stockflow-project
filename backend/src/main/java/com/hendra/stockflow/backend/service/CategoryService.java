@@ -70,7 +70,6 @@ public class CategoryService {
             oldestCategory.setName(categoryRequest.getName());
             categoryRepository.save(oldestCategory);
         }
-
         return oldestCategory;
     }
 }

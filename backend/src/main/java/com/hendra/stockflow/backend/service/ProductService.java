@@ -2,9 +2,11 @@ package com.hendra.stockflow.backend.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hendra.stockflow.backend.exception.ProductException;
+import com.hendra.stockflow.backend.model.dto.request.ManagementStockRequest;
 import com.hendra.stockflow.backend.model.dto.request.ProductRequest;
 import com.hendra.stockflow.backend.model.entity.Category;
 import com.hendra.stockflow.backend.model.entity.Product;
+import com.hendra.stockflow.backend.model.enums.StockActionType;
 import com.hendra.stockflow.backend.repository.CategoryRepository;
 import com.hendra.stockflow.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,5 +82,40 @@ public class ProductService {
         }
 
        return oldestData;
+    }
+
+    public Product changeStatus(Long productId){
+        if (productRepository.findById(productId).isPresent()){
+            Product oldStatus = productRepository.findById(productId).get();
+            oldStatus.setIsActive(oldStatus.getIsActive() != true);
+            productRepository.save(oldStatus);
+            return oldStatus;
+        }else throw new ProductException("Product with "+  productId +" not found");
+    }
+
+    public Product stockManagement(Long productId,String input){
+
+        if(productRepository.findById(productId).isPresent()){
+            ObjectMapper mapper = new ObjectMapper();
+            Product oldStock = productRepository.findById(productId).get();
+            ManagementStockRequest managementStockRequest ;
+            try {
+                managementStockRequest = mapper.readValue(input,ManagementStockRequest.class);
+            } catch (Exception e) {
+                throw new ProductException("Bad request, there is unknown property");
+            }
+
+            if (managementStockRequest.getType() == StockActionType.IN){
+                oldStock.setInStock(oldStock.getInStock()+managementStockRequest.getTotal());
+            } else if (managementStockRequest.getType() == StockActionType.OUT) {
+                oldStock.setInStock(oldStock.getInStock()-managementStockRequest.getTotal());
+                if (oldStock.getInStock() <= 0){
+                    throw new ProductException("Product can't less or equals then 0");
+                }
+            }
+            return productRepository.save(oldStock);
+        }else throw new ProductException("Product with "+  productId +" not found");
+
+
     }
 }
