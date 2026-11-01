@@ -19,7 +19,7 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/products")
-    public ResponseEntity<ProductResponse> insertNewProduct(@RequestBody String input){
+    public ResponseEntity<ProductResponse> newProduct(@RequestBody String input){
             Product newProduct = productService.createProduct(input);
             return new ResponseEntity<>( ProductResponse.builder().id(newProduct.getId()).name(newProduct.getName()).price(newProduct.getPrice()).salePrice(newProduct.getSalePrice()).inStock(newProduct.getInStock()).minimumStock(newProduct.getMinimumStock()).isActive(ProductStatus.ACTIVE).category(newProduct.getCategory()).build(), HttpStatus.OK);
 
@@ -27,5 +27,10 @@ public class ProductController {
     @GetMapping("/products/{product-id}")
     public ResponseEntity<Product> findById(@PathVariable("product-id") Long productId){
         return new ResponseEntity<>(productService.findById(productId),HttpStatus.OK);
+    }
+
+    @PutMapping("/products/{product-id}")
+    public ResponseEntity<Product> updateData(@PathVariable("product-id") Long productId, @RequestBody String input){
+        return new ResponseEntity<>(productService.updateData(productId,input),HttpStatus.OK);
     }
 }

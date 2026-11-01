@@ -55,14 +55,22 @@ public class CategoryService {
             return "Deleted Category with id : " + categoryId;
 
     }
-    public Category findById(Long categoryId){
 
+    public Category updateData(Long categoryId, String input){
+
+        Category oldestCategory = categoryRepository.findById(categoryId).get();
+        ObjectMapper mapper = new ObjectMapper();
+        CategoryRequest categoryRequest;
         if (categoryRepository.findById(categoryId).isPresent()){
-            return categoryRepository.findById(categoryId).get();
-        }else {
-            throw new CategoryException("Category with + "+ categoryId +" not found");
+            try {
+                categoryRequest = mapper.readValue(input,CategoryRequest.class);
+            }catch (Exception e){
+                throw new CategoryException("Bad request, there is unknown property");
+            };
+            oldestCategory.setName(categoryRequest.getName());
+            categoryRepository.save(oldestCategory);
         }
 
+        return oldestCategory;
     }
-
 }

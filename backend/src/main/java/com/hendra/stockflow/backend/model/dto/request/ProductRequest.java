@@ -1,6 +1,7 @@
 package com.hendra.stockflow.backend.model.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hendra.stockflow.backend.model.entity.Category;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
