@@ -1,6 +1,7 @@
 package com.hendra.stockflow.backend.controller;
 
 import com.hendra.stockflow.backend.exception.ProductException;
+import com.hendra.stockflow.backend.model.dto.request.ManagementStockRequest;
 import com.hendra.stockflow.backend.model.dto.request.ProductRequest;
 import com.hendra.stockflow.backend.model.dto.response.ProductResponse;
 import com.hendra.stockflow.backend.model.entity.Product;
@@ -39,4 +40,8 @@ public class ProductController {
         return new ResponseEntity<>(productService.changeStatus(productId),HttpStatus.OK);
     }
 
+    @PutMapping("/products/{product-id}/stock")
+    public ResponseEntity<Product> manageStock(@PathVariable("product-id") Long productId,@RequestBody ManagementStockRequest managementStockRequest){
+        return new ResponseEntity<>(productService.stockManagement(productId,managementStockRequest),HttpStatus.OK) ;
+    }
 }

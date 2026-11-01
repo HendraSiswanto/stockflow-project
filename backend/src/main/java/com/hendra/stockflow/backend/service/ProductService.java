@@ -93,17 +93,11 @@ public class ProductService {
         }else throw new ProductException("Product with "+  productId +" not found");
     }
 
-    public Product stockManagement(Long productId,String input){
+    public Product stockManagement(Long productId,ManagementStockRequest managementStockRequest){
 
         if(productRepository.findById(productId).isPresent()){
-            ObjectMapper mapper = new ObjectMapper();
+
             Product oldStock = productRepository.findById(productId).get();
-            ManagementStockRequest managementStockRequest ;
-            try {
-                managementStockRequest = mapper.readValue(input,ManagementStockRequest.class);
-            } catch (Exception e) {
-                throw new ProductException("Bad request, there is unknown property");
-            }
 
             if (managementStockRequest.getType() == StockActionType.IN){
                 oldStock.setInStock(oldStock.getInStock()+managementStockRequest.getTotal());
@@ -115,7 +109,5 @@ public class ProductService {
             }
             return productRepository.save(oldStock);
         }else throw new ProductException("Product with "+  productId +" not found");
-
-
     }
 }
