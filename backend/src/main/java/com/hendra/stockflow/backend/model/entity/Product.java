@@ -1,5 +1,7 @@
 package com.hendra.stockflow.backend.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,10 +36,12 @@ public class Product {
     @Column(name = "is_active")
     private Boolean isActive = true;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "product", cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     private List<History> historyList = new ArrayList<>();
 }

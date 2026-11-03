@@ -1,5 +1,6 @@
 package com.hendra.stockflow.backend.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.hendra.stockflow.backend.model.enums.ProductStatus;
 import com.hendra.stockflow.backend.model.enums.StockActionType;
 import jakarta.persistence.*;
@@ -22,6 +23,7 @@ public class History {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY,cascade = {CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
