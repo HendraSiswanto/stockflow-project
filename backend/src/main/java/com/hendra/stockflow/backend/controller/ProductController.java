@@ -13,12 +13,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:5173")
 public class ProductController {
     @Autowired
     private ProductService productService;
+
+    @GetMapping
+    public ResponseEntity<List<Product>> getAllProduct(){return new ResponseEntity<>(productService.getAllProduct(),HttpStatus.OK);}
 
     @PostMapping("/products")
     public ResponseEntity<ProductResponse> newProduct(@RequestBody String input){
