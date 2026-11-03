@@ -22,7 +22,7 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping
+    @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProduct(){return new ResponseEntity<>(productService.getAllProduct(),HttpStatus.OK);}
 
     @PostMapping("/products")
