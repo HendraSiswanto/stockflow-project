@@ -1,6 +1,6 @@
 // src/components/ProductDashboard.tsx
 import { useEffect, useState } from 'react';
-import { getProducts, updateStock, getSummary } from '../api/productApi';
+import {getProducts, updateStock, getSummary, changeProductStatus} from '../api/productApi';
 import { Product, SummaryResponse } from '../types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -173,6 +173,22 @@ export const ProductDashboard = () => {
             alert("Gagal mengubah stok!");
         }
     };
+    const handleToggleStatus = async (id: number) => {
+        try {
+            // Memanggil fungsi baru dari file API Axios Anda
+            await changeProductStatus(id);
+
+            // Refresh data setelah status berubah
+            const [productsData, summaryData] = await Promise.all([
+                getProducts(),
+                getSummary()
+            ]);
+            setProducts(productsData);
+            setSummary(summaryData);
+        } catch {
+            alert("Gagal mengubah status aktif produk!");
+        }
+    };
 
     if (loading) {
         return <div style={styles.loading}>Memuat data...</div>;
@@ -273,6 +289,16 @@ export const ProductDashboard = () => {
                                     onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#ef4444'}
                                 >
                                     - Stok
+                                </button>
+                                <button
+                                    onClick={() => handleToggleStatus(product.id)}
+                                    style={{
+                                        padding: '6px 12px', border: '1px solid #cbd5e1', borderRadius: '6px', cursor: 'pointer', fontSize: '12px', fontWeight: '600', marginLeft: '8px',
+                                        backgroundColor: product.isActive ? '#fee2e2' : '#dcfce7',
+                                        color: product.isActive ? '#991b1b' : '#15803d'
+                                    }}
+                                >
+                                    {product.isActive ? 'Non-Aktifkan' : 'Aktifkan'}
                                 </button>
                             </td>
                         </tr>
