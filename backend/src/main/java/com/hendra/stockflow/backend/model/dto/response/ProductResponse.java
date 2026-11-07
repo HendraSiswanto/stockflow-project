@@ -25,7 +25,7 @@ public class ProductResponse {
     private Double salePrice;
     private Integer inStock;
     private Integer minimumStock;
-    private Enum<ProductStatus> isActive;
+    private boolean isActive;
     private Category category;
     private List<History> historyList = new ArrayList<>();
 }

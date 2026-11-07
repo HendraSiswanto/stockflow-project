@@ -23,12 +23,12 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProduct(){return new ResponseEntity<>(productService.getAllProduct(),HttpStatus.OK);}
+    public ResponseEntity<List<ProductResponse>> getAllProduct(){return new ResponseEntity<>(productService.getAllProduct(),HttpStatus.OK);}
 
     @PostMapping("/products")
-    public ResponseEntity<ProductResponse> newProduct(@RequestBody String input){
+    public ResponseEntity<Product> newProduct(@RequestBody String input){
             Product newProduct = productService.createProduct(input);
-            return new ResponseEntity<>( ProductResponse.builder().id(newProduct.getId()).name(newProduct.getName()).price(newProduct.getPrice()).salePrice(newProduct.getSalePrice()).inStock(newProduct.getInStock()).minimumStock(newProduct.getMinimumStock()).isActive(ProductStatus.ACTIVE).category(newProduct.getCategory()).build(), HttpStatus.OK);
+            return new ResponseEntity<>( Product.builder().id(newProduct.getId()).name(newProduct.getName()).price(newProduct.getPrice()).salePrice(newProduct.getSalePrice()).inStock(newProduct.getInStock()).minimumStock(newProduct.getMinimumStock()).isActive(true).category(newProduct.getCategory()).build(), HttpStatus.OK);
 
     }
     @GetMapping("/products/{product-id}")

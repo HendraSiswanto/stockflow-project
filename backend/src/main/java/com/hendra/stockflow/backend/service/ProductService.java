@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hendra.stockflow.backend.exception.ProductException;
 import com.hendra.stockflow.backend.model.dto.request.ManagementStockRequest;
 import com.hendra.stockflow.backend.model.dto.request.ProductRequest;
+import com.hendra.stockflow.backend.model.dto.response.ProductResponse;
 import com.hendra.stockflow.backend.model.entity.Category;
 import com.hendra.stockflow.backend.model.entity.History;
 import com.hendra.stockflow.backend.model.entity.Product;
@@ -13,10 +14,13 @@ import com.hendra.stockflow.backend.repository.CategoryRepository;
 import com.hendra.stockflow.backend.repository.HistoryRepository;
 import com.hendra.stockflow.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,8 +38,17 @@ public class ProductService {
         this.historyRepository = historyRepository;
     }
 
-    public List<Product> getAllProduct (){
-        return productRepository.findAll();
+    public List<ProductResponse> getAllProduct (){
+        List<Product> allProduct = productRepository.findAll();
+
+        List<ProductResponse> filterResponse = new ArrayList<>();
+        while (allProduct.stream().iterator().hasNext()) {
+            Product curr = allProduct.stream().iterator().next();
+            ProductResponse currProductResponse = ProductResponse.builder().id(curr.getId()).name(curr.getName()).price(curr.getPrice()).salePrice(curr.getSalePrice()).inStock(curr.getInStock()).minimumStock(curr.getMinimumStock()).isActive(curr.getIsActive()).category(curr.getCategory()).build();
+            filterResponse.add(currProductResponse);
+        }
+
+        return filterResponse;
     }
 
     public Product createProduct(String input) {
