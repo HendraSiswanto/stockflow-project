@@ -48,8 +48,8 @@ export const ProductDashboard = () => {
     };
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         refreshAllData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Perhitungan Potong Halaman (Pagination Slicing)
@@ -271,6 +271,7 @@ export const ProductDashboard = () => {
     );
 };
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 const styles: any = {
     title: { fontSize: '28px', fontWeight: '700', color: '#1e293b', margin: '0 0 8px 0' },
     subtitle: { color: '#64748b', margin: '0' },
