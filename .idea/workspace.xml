@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9e81958-ee6c-4d0d-8b30-de4b237a9746" name="Changes" comment="fix the category name" />
+    <list default="true" id="f9e81958-ee6c-4d0d-8b30-de4b237a9746" name="Changes" comment="new delete button for product and fixing update status issue">
+      <change afterPath="$PROJECT_DIR$/frontend/frontend/src/components/OverviewDashboard.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/frontend/src/components/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/frontend/src/components/ProductDashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/frontend/src/components/ProductDashboard.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,6 +41,69 @@
     &quot;accountId&quot;: &quot;35dc30e8-4068-4a1a-98e0-5c8971517bb1&quot;
   }
 }</component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
+  <component name="NextEditCompletionFeaturesState">
+    <decayedCancelled>
+      <entry key="MS100" value="1.5871480071569346" />
+      <entry key="MS500" value="2.226360692776573" />
+      <entry key="S2" value="4.474296150076194" />
+      <entry key="S5" value="9.002248616258063" />
+      <entry key="S10" value="14.85767513795944" />
+      <entry key="S30" value="24.28604844860057" />
+      <entry key="S60" value="28.15614788382785" />
+      <entry key="M2" value="30.440030020553845" />
+      <entry key="M5" value="31.940516294824302" />
+      <entry key="M10" value="32.46413227924259" />
+      <entry key="M15" value="32.64137751653847" />
+      <entry key="M30" value="32.81999603432601" />
+      <entry key="H1" value="32.909824071190755" />
+      <entry key="H2" value="32.95486845308096" />
+      <entry key="H4" value="32.977423318884235" />
+      <entry key="D1" value="32.996235703839766" />
+      <entry key="W1" value="32.999462206266465" />
+    </decayedCancelled>
+    <decayedSelected>
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="0.0" />
+      <entry key="S2" value="0.0" />
+      <entry key="S5" value="0.0" />
+      <entry key="S10" value="0.0" />
+      <entry key="S30" value="0.0" />
+      <entry key="S60" value="0.0" />
+      <entry key="M2" value="0.0" />
+      <entry key="M5" value="0.0" />
+      <entry key="M10" value="0.0" />
+      <entry key="M15" value="0.0" />
+      <entry key="M30" value="0.0" />
+      <entry key="H1" value="0.0" />
+      <entry key="H2" value="0.0" />
+      <entry key="H4" value="0.0" />
+      <entry key="D1" value="0.0" />
+      <entry key="W1" value="0.0" />
+    </decayedSelected>
+    <decayedShown>
+      <entry key="MS100" value="1.488513660922266" />
+      <entry key="MS500" value="2.19959989010363" />
+      <entry key="S2" value="4.460613289789943" />
+      <entry key="S5" value="8.983189197234971" />
+      <entry key="S10" value="14.837478874158048" />
+      <entry key="S30" value="24.273642541355905" />
+      <entry key="S60" value="28.148803994637795" />
+      <entry key="M2" value="30.436024047310458" />
+      <entry key="M5" value="31.938826497238022" />
+      <entry key="M10" value="32.46327216162506" />
+      <entry key="M15" value="32.64080067282415" />
+      <entry key="M30" value="32.81970588380291" />
+      <entry key="H1" value="32.909678561367976" />
+      <entry key="H2" value="32.954795589228425" />
+      <entry key="H4" value="32.97738685968497" />
+      <entry key="D1" value="32.99622962351543" />
+      <entry key="W1" value="32.9994613375558" />
+    </decayedShown>
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1,
   &quot;fromUser&quot;: false
@@ -49,6 +117,7 @@
   &quot;keyToString&quot;: {
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
@@ -132,7 +201,8 @@
     <MESSAGE value="make a dashboard for product in frontend" />
     <MESSAGE value="fixing endpoint" />
     <MESSAGE value="fix the category name" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix the category name" />
+    <MESSAGE value="new delete button for product and fixing update status issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="new delete button for product and fixing update status issue" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

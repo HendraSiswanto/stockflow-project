@@ -1,22 +1,39 @@
+import { useState } from 'react';
+import { Sidebar } from './components/Sidebar';
+import { OverviewDashboard } from './components/OverviewDashboard';
 import { ProductDashboard } from './components/ProductDashboard';
-import { HistoryLogs } from './components/HistoryLogs';
 import { CategoryManager } from './components/CategoryManager';
+import { HistoryLogs } from './components/HistoryLogs';
 
 function App() {
-  return (
-      <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', paddingBottom: '40px' }}>
-        {/* 1. Dashboard Utama & Tabel Produk */}
-        <ProductDashboard />
+    const [activeTab, setActiveTab] = useState<'overview' | 'products' | 'categories' | 'history'>('overview');
 
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 24px' }}>
-          {/* 2. Panel Manajemen Kategori */}
-          <CategoryManager />
+    const renderContent = () => {
+        switch (activeTab) {
+            case 'overview':
+                return <OverviewDashboard />;
+            case 'products':
+                return <ProductDashboard />;
+            case 'categories':
+                return <CategoryManager />;
+            case 'history':
+                return <HistoryLogs />;
+            default:
+                return <OverviewDashboard />;
+        }
+    };
 
-          {/* 3. Panel Audit Log Riwayat Mutasi */}
-          <HistoryLogs />
+    return (
+        <div style={{ display: 'flex', backgroundColor: '#f8fafc', minHeight: '100vh' }}>
+            {/* Navigasi Panel Samping */}
+            <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+
+            {/* Konten Halaman Aktif di Sebelah Kanan */}
+            <main style={{ flex: 1, marginLeft: '260px', padding: '40px', minWidth: 0 }}>
+                {renderContent()}
+            </main>
         </div>
-      </div>
-  );
+    );
 }
 
 export default App;
