@@ -42,7 +42,6 @@ export const ProductDashboard = () => {
         } catch {
             setError("Gagal memuat data. Pastikan Backend berjalan.");
         } finally {
-            // eslint-disable-next-line react-hooks/set-state-in-effect
             setLoading(false);
         }
     };
