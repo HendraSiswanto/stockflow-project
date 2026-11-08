@@ -24,24 +24,13 @@ public class ProductController {
 
     @GetMapping("/products")
     public ResponseEntity<List<ProductResponse>> getAllProduct(){
-            List<Product> products = productService.getAllProduct();
-            List<ProductResponse> response = products.stream().map(product ->
-                    ProductResponse.builder()
-                            .id(product.getId())
-                            .name(product.getName())
-                            .price(product.getPrice())
-                            .salePrice(product.getSalePrice())
-                            .inStock(product.getInStock())
-                            .minimumStock(product.getMinimumStock())
-                            .isActive(product.getIsActive())
-                            .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
-                            .categoryName(product.getCategory() != null ? product.getCategory().getName() : "-")
-                            .build()
-            ).collect(java.util.stream.Collectors.toList());
-
-            return new ResponseEntity<>(response, HttpStatus.OK);
+            return new ResponseEntity<>(productService.getAllProduct(), HttpStatus.OK);
         }
-
+    @DeleteMapping("/products/{product-id}")
+    public ResponseEntity<String> deleteProductById(
+            @PathVariable("product-id") Long productId){
+        return new ResponseEntity<>(productService.deleteById(productId),HttpStatus.OK);
+    }
 
     @PostMapping("/products")
     public ResponseEntity<Product> newProduct(@RequestBody String input){

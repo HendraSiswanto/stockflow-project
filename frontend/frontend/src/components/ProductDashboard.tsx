@@ -8,7 +8,8 @@ import {
     updateProduct,
     getAllHistory,
     getProductHistory,
-    getCategories
+    getCategories,
+    deleteProduct
 } from '../api/productApi';
 import type { Product, Category, History, SummaryResponse } from '../types';
 
@@ -29,6 +30,7 @@ export const ProductDashboard = () => {
     const [formSalePrice, setFormSalePrice] = useState(0);
     const [formInStock, setFormInStock] = useState(0);
     const [formMinStock, setFormMinStock] = useState(0);
+    const [formActive,setFormActive] = useState("")
     const [formCategoryId, setFormCategoryId] = useState<number>(0);
 
     const refreshAllData = async () => {
@@ -87,6 +89,18 @@ export const ProductDashboard = () => {
             alert("Gagal mengubah status produk!");
         }
     };
+    const handleDelete = async (id: number) => {
+        if (!window.confirm("Apakah Anda yakin ingin menghapus kategori ini?")) return;
+
+        try {
+            await deleteProduct(id);
+            const data = await getProducts();
+            setProducts(data);
+        } catch {
+            alert("Gagal menghapus kategori!");
+        }
+    };
+
 
     // Pemicu Buka Modal Tambah Baru
     const openAddModal = () => {
@@ -108,6 +122,7 @@ export const ProductDashboard = () => {
         setFormSalePrice(product.salePrice);
         setFormInStock(product.inStock);
         setFormMinStock(product.minimumStock);
+        setFormActive(product.active ? "true":"false");
         setFormCategoryId(product.categoryId || 0);
         setIsModalOpen(true);
     };
@@ -122,6 +137,7 @@ export const ProductDashboard = () => {
             salePrice: formSalePrice,
             inStock: formInStock,
             minimumStock: formMinStock,
+            isActive : formActive,
             categoryId: formCategoryId
         };
 
@@ -210,16 +226,22 @@ export const ProductDashboard = () => {
                             <td style={styles.td}>
                                 <span onClick={() => handleToggleStatus(product.id)} style={{
                                     ...styles.badgeStatus,
-                                    backgroundColor: product.isActive ? '#dcfce7' : '#fee2e2',
-                                    color: product.isActive ? '#166534' : '#991b1b',
+                                    backgroundColor: product.active ? '#dcfce7' : '#fee2e2',
+                                    color: product.active ? '#166534' : '#991b1b',
                                 }}>
-                                    {product.isActive ? 'Aktif' : 'Non-Aktif'}
+                                    {product.active ? 'Aktif' : 'Non-Aktif'}
                                 </span>
                             </td>
                             <td style={{ ...styles.td, textAlign: 'right' }}>
                                 <button onClick={() => handleStockChange(product.id, 'IN')} style={styles.buttonGreen}>+ Stok</button>
                                 <button onClick={() => handleStockChange(product.id, 'OUT')} style={styles.buttonRed}>- Stok</button>
                                 <button onClick={() => openEditModal(product)} style={styles.buttonEdit}>Edit</button>
+                                <button
+                                    onClick={() => handleDelete(product.id)}
+                                    style={styles.buttonRed}
+                                >
+                                    Hapus
+                                </button>
                             </td>
                         </tr>
                     ))}
@@ -321,6 +343,12 @@ export const ProductDashboard = () => {
                                 </div>
                             </div>
 
+                            <label style={styles.label}>Pilih Status</label>
+                            <select value={formActive} onChange={e => setFormActive((e.target.value))} style={styles.input}>
+                                <option value="true">Aktif</option>
+                                <option value="false">Non-Aktif</option>
+                            </select>
+
                             <label style={styles.label}>Pilih Kategori</label>
                             <select value={formCategoryId} onChange={e => setFormCategoryId(Number(e.target.value))} style={styles.input}>
                                 {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -356,7 +384,7 @@ const styles: any = {
     badgeStatus: { padding: '4px 8px', borderRadius: '6px', fontSize: '12px', fontWeight: '600', cursor: 'pointer' },
     buttonGreen: { backgroundColor: '#10b981', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', marginRight: '6px' },
     buttonRed: { backgroundColor: '#ef4444', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', marginRight: '6px' },
-    buttonEdit: { backgroundColor: '#64748b', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer' },
+    buttonEdit: { backgroundColor: '#64748b', color: 'white', border: 'none', padding: '6px 12px', borderRadius: '6px', cursor: 'pointer', marginRight: '6px' },
     buttonAdd: { backgroundColor: '#2563eb', color: 'white', border: 'none', padding: '10px 20px', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' },
     select: { padding: '8px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', backgroundColor: '#fff' },
     modalOverlay: { position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', justifyContent: 'center', alignItems: 'center', zIndex: 1000 },

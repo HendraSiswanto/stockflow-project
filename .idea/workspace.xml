@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9e81958-ee6c-4d0d-8b30-de4b237a9746" name="Changes" comment="fixing endpoint" />
+    <list default="true" id="f9e81958-ee6c-4d0d-8b30-de4b237a9746" name="Changes" comment="fix the category name" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -131,7 +131,8 @@
     <MESSAGE value="move the branch master to main" />
     <MESSAGE value="make a dashboard for product in frontend" />
     <MESSAGE value="fixing endpoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing endpoint" />
+    <MESSAGE value="fix the category name" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix the category name" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

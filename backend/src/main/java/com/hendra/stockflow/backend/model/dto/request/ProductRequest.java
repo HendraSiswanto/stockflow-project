@@ -23,5 +23,7 @@ public class ProductRequest {
     @NotNull
     private Integer minimumStock;
     @NotBlank
+    private String isActive;
+    @NotNull
     private Long categoryId;
 }

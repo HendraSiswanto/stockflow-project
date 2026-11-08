@@ -45,6 +45,10 @@ export const updateStock = async (id: number, stockRequest: StockUpdateRequest):
     const response = await apiClient.put<Product>(`/products/${id}/stock`, stockRequest);
     return response.data;
 };
+export const deleteProduct = async (id: number): Promise<string> => {
+    const response = await apiClient.delete<string>(`/products/${id}`);
+    return response.data;
+};
 
 // --- CATEGORY ENDPOINTS ---
 

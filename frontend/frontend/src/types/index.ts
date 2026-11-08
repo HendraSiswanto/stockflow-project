@@ -10,7 +10,7 @@ export interface Product {
     salePrice: number;
     inStock: number;
     minimumStock: number;
-    isActive: boolean;
+    active: boolean;
     categoryName: string;
     categoryId:number;
     historyList: History[];

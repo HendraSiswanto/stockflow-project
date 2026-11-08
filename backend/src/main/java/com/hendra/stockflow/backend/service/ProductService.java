@@ -38,8 +38,30 @@ public class ProductService {
         this.historyRepository = historyRepository;
     }
 
-    public List<Product> getAllProduct (){
-        return productRepository.findAll();
+    public List<ProductResponse> getAllProduct (){
+        List<Product> products = productRepository.findAll();
+
+        return products.stream().map(product ->
+                ProductResponse.builder()
+                        .id(product.getId())
+                        .name(product.getName())
+                        .price(product.getPrice())
+                        .salePrice(product.getSalePrice())
+                        .inStock(product.getInStock())
+                        .minimumStock(product.getMinimumStock())
+                        .isActive(product.getIsActive())
+                        .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
+                        .categoryName(product.getCategory() != null ? product.getCategory().getName() : "-")
+                        .build()
+        ).collect(java.util.stream.Collectors.toList());
+
+    }
+
+    public String deleteById(Long productId){
+
+        productRepository.deleteById(productId);
+
+        return "deleted products with id : "+ productId;
     }
 
     public Product createProduct(String input) {
@@ -92,6 +114,7 @@ public class ProductService {
               oldestData.setSalePrice(productRequest.getSalePrice() == null ? oldestData.getSalePrice() : productRequest.getSalePrice()) ;
               oldestData.setInStock(productRequest.getInStock() == null ? oldestData.getInStock() : productRequest.getInStock());
               oldestData.setMinimumStock(productRequest.getMinimumStock() == null? oldestData.getMinimumStock() : productRequest.getMinimumStock());
+              oldestData.setIsActive(productRequest.getIsActive() == null? oldestData.getIsActive(): productRequest.getIsActive().equalsIgnoreCase("true"));
               oldestData.setCategory(categoryRepository.findById(productRequest.getCategoryId()).get()) ;
               oldestData.setIsActive(true);
             }else throw  new ProductException("New Category With id - "+productRequest.getCategoryId()+" Not Found");
