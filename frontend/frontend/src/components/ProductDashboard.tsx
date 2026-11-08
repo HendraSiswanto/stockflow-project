@@ -108,7 +108,7 @@ export const ProductDashboard = () => {
         setFormSalePrice(product.salePrice);
         setFormInStock(product.inStock);
         setFormMinStock(product.minimumStock);
-        setFormCategoryId(product.category?.id || 0);
+        setFormCategoryId(product.categoryId || 0);
         setIsModalOpen(true);
     };
 
@@ -194,7 +194,7 @@ export const ProductDashboard = () => {
                             </td>
                             <td style={styles.td}>
                                 <span style={styles.badgeCategory}>
-                                    {product.category?.name || '-'}
+                                    {product.categoryName || '-'}
                                 </span>
                             </td>
                             <td style={styles.td}>

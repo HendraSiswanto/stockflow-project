@@ -26,6 +26,7 @@ public class ProductResponse {
     private Integer inStock;
     private Integer minimumStock;
     private boolean isActive;
-    private Category category;
+    private String categoryName;
+    private Long categoryId;
     private List<History> historyList = new ArrayList<>();
 }

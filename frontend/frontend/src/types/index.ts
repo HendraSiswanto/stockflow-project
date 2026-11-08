@@ -1,7 +1,6 @@
 export interface Category {
     id: number;
     name: string;
-    productList:Product[];
 }
 
 export interface Product {
@@ -12,7 +11,8 @@ export interface Product {
     inStock: number;
     minimumStock: number;
     isActive: boolean;
-    category: Category;
+    categoryName: string;
+    categoryId:number;
     historyList: History[];
 }
 

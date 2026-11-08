@@ -38,17 +38,8 @@ public class ProductService {
         this.historyRepository = historyRepository;
     }
 
-    public List<ProductResponse> getAllProduct (){
-        List<Product> allProduct = productRepository.findAll();
-
-        List<ProductResponse> filterResponse = new ArrayList<>();
-        while (allProduct.stream().iterator().hasNext()) {
-            Product curr = allProduct.stream().iterator().next();
-            ProductResponse currProductResponse = ProductResponse.builder().id(curr.getId()).name(curr.getName()).price(curr.getPrice()).salePrice(curr.getSalePrice()).inStock(curr.getInStock()).minimumStock(curr.getMinimumStock()).isActive(curr.getIsActive()).category(curr.getCategory()).build();
-            filterResponse.add(currProductResponse);
-        }
-
-        return filterResponse;
+    public List<Product> getAllProduct (){
+        return productRepository.findAll();
     }
 
     public Product createProduct(String input) {
