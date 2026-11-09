@@ -102,7 +102,6 @@ public class ProductService {
         Product oldestData = productRepository.findById(productId).get();
         if (productRepository.findById(productId).isPresent()){
             try {
-                System.out.println(input);
                 productRequest = mapper.readValue(input,ProductRequest.class);
             }catch (Exception e){
                 throw new ProductException("Bad request, there is unknown property");
@@ -114,9 +113,8 @@ public class ProductService {
               oldestData.setSalePrice(productRequest.getSalePrice() == null ? oldestData.getSalePrice() : productRequest.getSalePrice()) ;
               oldestData.setInStock(productRequest.getInStock() == null ? oldestData.getInStock() : productRequest.getInStock());
               oldestData.setMinimumStock(productRequest.getMinimumStock() == null? oldestData.getMinimumStock() : productRequest.getMinimumStock());
-              oldestData.setIsActive(productRequest.getIsActive() == null? oldestData.getIsActive(): productRequest.getIsActive().equalsIgnoreCase("true"));
+              oldestData.setIsActive(productRequest.getIsActive() == null? oldestData.getIsActive(): productRequest.getIsActive().equals("true"));
               oldestData.setCategory(categoryRepository.findById(productRequest.getCategoryId()).get()) ;
-              oldestData.setIsActive(true);
             }else throw  new ProductException("New Category With id - "+productRequest.getCategoryId()+" Not Found");
             productRepository.save(oldestData);
         }

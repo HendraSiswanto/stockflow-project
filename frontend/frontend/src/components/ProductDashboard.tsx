@@ -28,7 +28,7 @@ export const ProductDashboard = () => {
     const [formSalePrice, setFormSalePrice] = useState(0);
     const [formInStock, setFormInStock] = useState(0);
     const [formMinStock, setFormMinStock] = useState(0);
-    const [formActive, setFormActive] = useState("true");
+    const [formActive, setFormActive] = useState("");
     const [formCategoryId, setFormCategoryId] = useState<number>(0);
 
     const refreshAllData = async () => {
@@ -96,7 +96,6 @@ export const ProductDashboard = () => {
         setFormSalePrice(0);
         setFormInStock(0);
         setFormMinStock(0);
-        setFormActive("true");
         setFormCategoryId(categories[0]?.id || 0);
         setIsModalOpen(true);
     };
@@ -121,7 +120,7 @@ export const ProductDashboard = () => {
             salePrice: formSalePrice,
             inStock: formInStock,
             minimumStock: formMinStock,
-            isActive: formActive === "true",
+            isActive: formActive,
             categoryId: formCategoryId
         };
         try {
