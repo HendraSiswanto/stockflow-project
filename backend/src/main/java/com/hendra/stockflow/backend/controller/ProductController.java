@@ -23,8 +23,9 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<ProductResponse>> getAllProduct(){
-            return new ResponseEntity<>(productService.getAllProduct(), HttpStatus.OK);
+    public ResponseEntity<List<ProductResponse>> getAllProduct( @RequestParam(defaultValue = "0") int page,
+                                                                @RequestParam(defaultValue = "10") int size){
+            return new ResponseEntity<>(productService.getAllProduct(page, size), HttpStatus.OK);
         }
     @DeleteMapping("/products/{product-id}")
     public ResponseEntity<String> deleteProductById(

@@ -14,6 +14,9 @@ import com.hendra.stockflow.backend.repository.CategoryRepository;
 import com.hendra.stockflow.backend.repository.HistoryRepository;
 import com.hendra.stockflow.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -38,9 +41,9 @@ public class ProductService {
         this.historyRepository = historyRepository;
     }
 
-    public List<ProductResponse> getAllProduct (){
-        List<Product> products = productRepository.findAll();
-
+    public List<ProductResponse> getAllProduct (int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Product> products = productRepository.findAll(pageable);
         return products.stream().map(product ->
                 ProductResponse.builder()
                         .id(product.getId())
