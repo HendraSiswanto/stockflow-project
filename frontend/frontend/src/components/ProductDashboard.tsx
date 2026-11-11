@@ -17,8 +17,10 @@ export const ProductDashboard = () => {
     const [error, setError] = useState<string | null>(null);
 
     // --- CONTROLLER FRONTEND PAGINATION ---
-    const [currentPage, setCurrentPage] = useState(0);
-    const itemsPerPage = 8;
+    const [currentPage, setCurrentPage] = useState<number>(0);
+    const [totalPages, setTotalPages] = useState<number>(1);
+    const [totalElements, setTotalElements] = useState<number>(0);
+    const itemsPerPage = 8; // Ukuran size yang dikirim ke backend
 
     // State untuk Modal Form (Tambah/Edit)
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,11 +35,15 @@ export const ProductDashboard = () => {
 
     const refreshAllData = async () => {
         try {
-            const [productsData, categoriesData] = await Promise.all([
-                getProducts(),
+            const [productsPageData, categoriesData] = await Promise.all([
+                getProducts(currentPage, itemsPerPage),
                 getCategories()
             ]);
-            setProducts(productsData);
+
+            // Ambil array barang dari properti 'content'
+            setProducts(productsPageData.content);
+            setTotalPages(productsPageData.totalPages);
+            setTotalElements(productsPageData.totalElements);
             setCategories(categoriesData);
         } catch {
             setError("Gagal memuat data. Pastikan Backend berjalan.");
@@ -46,16 +52,11 @@ export const ProductDashboard = () => {
         }
     };
 
+// Trigger ulang fetch setiap kali user berpindah halaman
     useEffect(() => {
         // eslint-disable-next-line react-hooks/set-state-in-effect
         refreshAllData();
-    }, []);
-
-    // Perhitungan Potong Halaman (Pagination Slicing)
-    const indexOfLastItem = (currentPage + 1) * itemsPerPage;
-    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-    const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
-    const totalPages = Math.ceil(products.length / itemsPerPage);
+    }, [currentPage]);
 
     const handleStockChange = async (id: number, type: 'IN' | 'OUT') => {
         try {
@@ -164,7 +165,7 @@ export const ProductDashboard = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {currentItems.map((product) => (
+                    {products.map((product) => (
                         <tr key={product.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
                             <td style={styles.td}>
                                 <div style={{ fontWeight: '600', color: '#1e293b' }}>{product.name}</div>
@@ -211,13 +212,26 @@ export const ProductDashboard = () => {
                 {/* CONTROL PANEL FRONTEND PAGINATION */}
                 <div style={{ padding: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f8fafc', borderTop: '1px solid #e2e8f0' }}>
                     <span style={{ fontSize: '13px', color: '#64748b' }}>
-                        Halaman <b>{currentPage + 1}</b> dari <b>{totalPages || 1}</b> (Total: {products.length} produk)
+                        Halaman <b>{currentPage + 1}</b> dari <b>{totalPages || 1}</b> (Total: {totalElements} produk)
                     </span>
                     <div style={{ display: 'flex', gap: '8px' }}>
-                        <button disabled={currentPage === 0} onClick={() => setCurrentPage(p => p - 1)} style={{ padding: '6px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', backgroundColor: '#fff', cursor: currentPage === 0 ? 'not-allowed' : 'pointer' }}>◀ Prev</button>
-                        <button disabled={currentPage >= totalPages - 1} onClick={() => setCurrentPage(p => p + 1)} style={{ padding: '6px 12px', borderRadius: '6px', border: '1px solid #cbd5e1', backgroundColor: '#fff', cursor: currentPage >= totalPages - 1 ? 'not-allowed' : 'pointer' }}>Next ▶</button>
+                        <button
+                            disabled={currentPage === 0}
+                            onClick={() => setCurrentPage(p => p - 1)}
+                            style={{ padding: '6px 12px', cursor: currentPage === 0 ? 'not-allowed' : 'pointer' }}
+                        >
+                            ◀ Prev
+                        </button>
+                        <button
+                            disabled={currentPage >= totalPages - 1}
+                            onClick={() => setCurrentPage(p => p + 1)}
+                            style={{ padding: '6px 12px', cursor: currentPage >= totalPages - 1 ? 'not-allowed' : 'pointer' }}
+                        >
+                            Next ▶
+                        </button>
                     </div>
                 </div>
+
             </div>
 
             {/* MODAL DIALOG POPUP */}

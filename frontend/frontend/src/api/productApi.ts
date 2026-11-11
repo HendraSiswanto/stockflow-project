@@ -9,9 +9,21 @@ const apiClient = axios.create({
 });
 
 // --- PRODUCT ENDPOINTS ---
+export interface JpaPageResponse<T> {
+    content: T[];
+    totalPages: number;
+    totalElements: number;
+    number: number;
+    size: number;
+}
 
-export const getProducts = async (): Promise<Product[]> => {
-    const response = await apiClient.get<Product[]>('/products');
+export const getProducts = async (page: number, size: number): Promise<JpaPageResponse<Product>> => {
+    const response = await apiClient.get<JpaPageResponse<Product>>(`/products`, {
+        params: {
+            page: page,
+            size: size
+        }
+    });
     return response.data;
 };
 
