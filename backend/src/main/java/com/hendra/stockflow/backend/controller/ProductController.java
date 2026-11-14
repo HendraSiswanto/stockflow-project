@@ -1,19 +1,14 @@
 package com.hendra.stockflow.backend.controller;
 
-import com.hendra.stockflow.backend.exception.ProductException;
 import com.hendra.stockflow.backend.model.dto.request.ManagementStockRequest;
-import com.hendra.stockflow.backend.model.dto.request.ProductRequest;
 import com.hendra.stockflow.backend.model.dto.response.ProductResponse;
 import com.hendra.stockflow.backend.model.entity.Product;
-import com.hendra.stockflow.backend.model.enums.ProductStatus;
-import com.hendra.stockflow.backend.service.CategoryService;
 import com.hendra.stockflow.backend.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -23,8 +18,8 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<ProductResponse>> getAllProduct( @RequestParam(defaultValue = "0") int page,
-                                                                @RequestParam(defaultValue = "10") int size){
+    public ResponseEntity<Page<ProductResponse>> getAllProduct(@RequestParam(defaultValue = "0") int page,
+                                                               @RequestParam(defaultValue = "10") int size){
             return new ResponseEntity<>(productService.getAllProduct(page, size), HttpStatus.OK);
         }
     @DeleteMapping("/products/{product-id}")

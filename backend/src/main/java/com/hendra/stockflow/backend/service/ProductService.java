@@ -41,10 +41,12 @@ public class ProductService {
         this.historyRepository = historyRepository;
     }
 
-    public List<ProductResponse> getAllProduct (int page, int size){
+    public Page<ProductResponse> getAllProduct(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> products = productRepository.findAll(pageable);
-        return products.stream().map(product ->
+
+        // Gunakan .map() langsung pada objek Page (JANGAN pakai .stream().collect(toList()))
+        return products.map(product ->
                 ProductResponse.builder()
                         .id(product.getId())
                         .name(product.getName())
@@ -56,8 +58,7 @@ public class ProductService {
                         .categoryId(product.getCategory() != null ? product.getCategory().getId() : null)
                         .categoryName(product.getCategory() != null ? product.getCategory().getName() : "-")
                         .build()
-        ).collect(java.util.stream.Collectors.toList());
-
+        );
     }
 
     public String deleteById(Long productId){
