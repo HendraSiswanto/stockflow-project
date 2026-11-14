@@ -21,6 +21,7 @@ export const ProductDashboard = () => {
     const [totalPages, setTotalPages] = useState<number>(1);
     const [totalElements, setTotalElements] = useState<number>(0);
     const itemsPerPage = 8; // Ukuran size yang dikirim ke backend
+    const [isServerPaging, setIsServerPaging] = useState<boolean>(false);
 
     // State untuk Modal Form (Tambah/Edit)
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,12 +40,24 @@ export const ProductDashboard = () => {
                 getProducts(currentPage, itemsPerPage),
                 getCategories()
             ]);
+            console.log("DATA MENTAH DARI BACKEND:", productsPageData);
 
             // Ambil array barang dari properti 'content'
-            setProducts(productsPageData.content);
-            setTotalPages(productsPageData.totalPages);
-            setTotalElements(productsPageData.totalElements);
-            setCategories(categoriesData);
+            if (productsPageData && Array.isArray(productsPageData.content)) {
+                setIsServerPaging(true);
+                setProducts(productsPageData.content);
+                setTotalPages(productsPageData.totalPages || 1);
+                setTotalElements(productsPageData.totalElements || productsPageData.content.length);
+            } else if (Array.isArray(productsPageData)) {
+                setIsServerPaging(false);
+                setProducts(productsPageData);
+                setTotalPages(Math.ceil(productsPageData.length / itemsPerPage) || 1);
+                setTotalElements(productsPageData.length);
+            } else {
+                setProducts([]);
+            }
+
+            setCategories(Array.isArray(categoriesData) ? categoriesData : []);
         } catch {
             setError("Gagal memuat data. Pastikan Backend berjalan.");
         } finally {
@@ -136,6 +149,9 @@ export const ProductDashboard = () => {
             alert("Gagal menyimpan data produk!");
         }
     };
+    const displayedProducts = isServerPaging
+        ? products
+        : products.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
     if (loading) return <div style={styles.loading}>Memuat data...</div>;
     if (error) return <div style={styles.error}>{error}</div>;
@@ -165,7 +181,7 @@ export const ProductDashboard = () => {
                     </tr>
                     </thead>
                     <tbody>
-                    {products.map((product) => (
+                    {displayedProducts.map((product) => (
                         <tr key={product.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
                             <td style={styles.td}>
                                 <div style={{ fontWeight: '600', color: '#1e293b' }}>{product.name}</div>
@@ -199,7 +215,7 @@ export const ProductDashboard = () => {
                             </td>
                         </tr>
                     ))}
-                    {products.length === 0 && (
+                    {displayedProducts.length === 0 && (
                         <tr>
                             <td colSpan={6} style={{ padding: '24px', textAlign: 'center', color: '#94a3b8' }}>
                                 Belum ada data produk. Klik "+ Tambah Produk Baru" untuk mengisi.

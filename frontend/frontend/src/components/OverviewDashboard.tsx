@@ -10,10 +10,17 @@ export const OverviewDashboard: React.FC = () => {
     useEffect(() => {
         const loadDashboard = async () => {
             try {
-                const [pData, sData] = await Promise.all([getProducts(), getSummary()]);
+                const [pData, sData] = await Promise.all(
+                    [getProducts(0, 10), getSummary()]
+                );
                 setSummary(sData);
-                // Batasi hanya 10 item pertama untuk efisiensi visual halaman awal
-                setTopProducts(pData.slice(0, 10));
+                if (pData && Array.isArray(pData.content)) {
+                    setTopProducts(pData.content);
+                } else if (Array.isArray(pData)) {
+                    setTopProducts(pData.slice(0, 10));
+                } else {
+                    setTopProducts([]);
+                }
             } catch (err) {
                 console.error(err);
             } finally {
