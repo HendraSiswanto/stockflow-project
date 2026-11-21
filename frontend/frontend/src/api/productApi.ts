@@ -83,6 +83,11 @@ export const deleteCategory = async (id: number): Promise<string> => {
     return response.data;
 };
 
+export const updateCategory = async (id: number, name: string): Promise<Category> => {
+    const response = await apiClient.put<Category>(`/categories/${id}`, { name });
+    return response.data;
+};
+
 
 // --- HISTORY ENDPOINTS ---
 

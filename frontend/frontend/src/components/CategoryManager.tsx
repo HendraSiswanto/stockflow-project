@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getCategories, createCategory, deleteCategory } from '../api/productApi';
-import axios from 'axios';
+import {getCategories, createCategory, deleteCategory, updateCategory} from '../api/productApi';
 import type { Category } from '../types';
 
 export const CategoryManager = () => {
@@ -60,9 +59,7 @@ export const CategoryManager = () => {
         if (!editingName.trim()) return;
 
         try {
-            await axios.put(`http://localhost:8080/api/categories/${id}`, editingName, {
-                headers: { 'Content-Type': 'text/plain' }
-            });
+            await updateCategory(id, editingName);
             setEditingId(null);
             setEditingName('');
             const data = await getCategories();

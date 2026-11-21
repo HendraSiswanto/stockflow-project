@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
     getProducts,
+    getProductById,
     updateStock,
     changeProductStatus,
     createProduct,
@@ -33,6 +34,16 @@ export const ProductDashboard = () => {
     const [formMinStock, setFormMinStock] = useState(0);
     const [formActive, setFormActive] = useState("");
     const [formCategoryId, setFormCategoryId] = useState<number>(0);
+    const [detailProduct, setDetailProduct] = useState<Product | null>(null);
+
+    const handleViewDetail = async (id: number) => {
+        try {
+            const data = await getProductById(id);
+            setDetailProduct(data);
+        } catch {
+            alert("Gagal memuat detail produk!");
+        }
+    };
 
     const refreshAllData = async () => {
         try {
@@ -114,16 +125,23 @@ export const ProductDashboard = () => {
         setIsModalOpen(true);
     };
 
-    const openEditModal = (product: Product) => {
-        setEditingProductId(product.id);
-        setFormName(product.name);
-        setFormPrice(product.price);
-        setFormSalePrice(product.salePrice);
-        setFormInStock(product.inStock);
-        setFormMinStock(product.minimumStock);
-        setFormActive(product.active ? "true" : "false");
-        setFormCategoryId(product.categoryId || 0);
-        setIsModalOpen(true);
+    const openEditModal = async (id: number) => {
+        try {
+            // Ambil detail produk terbaru langsung dari backend menggunakan getProductById
+            const freshProduct = await getProductById(id);
+
+            setEditingProductId(freshProduct.id);
+            setFormName(freshProduct.name);
+            setFormPrice(freshProduct.price);
+            setFormSalePrice(freshProduct.salePrice);
+            setFormInStock(freshProduct.inStock);
+            setFormMinStock(freshProduct.minimumStock ?? 0);
+            setFormActive(freshProduct.active ? "true" : "false");
+            setFormCategoryId(freshProduct.categoryId || categories[0]?.id || 0);
+            setIsModalOpen(true);
+        } catch {
+            alert("Gagal mengambil detail produk terbaru dari server!");
+        }
     };
 
     const handleFormSubmit = async (e: React.FormEvent) => {
@@ -157,7 +175,31 @@ export const ProductDashboard = () => {
     if (error) return <div style={styles.error}>{error}</div>;
 
     return (
+
         <div style={{ padding: 0 }}>
+
+            {detailProduct && (
+                <div style={styles.modalOverlay} onClick={() => setDetailProduct(null)}>
+                    <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+                        <h3 style={{ margin: '0 0 16px 0', fontSize: '18px', fontWeight: '700' }}>
+                            Detail Produk #{detailProduct.id}
+                        </h3>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', fontSize: '14px', color: '#334155' }}>
+                            <div><b>Nama Barang:</b> {detailProduct.name}</div>
+                            <div><b>Kategori:</b> {detailProduct.categoryName || '-'}</div>
+                            <div><b>Harga Beli:</b> Rp {detailProduct.price.toLocaleString()}</div>
+                            <div><b>Harga Jual:</b> Rp {detailProduct.salePrice.toLocaleString()}</div>
+                            <div><b>Keuntungan / Pcs:</b> Rp {(detailProduct.salePrice - detailProduct.price).toLocaleString()}</div>
+                            <div><b>Stok Tersedia:</b> {detailProduct.inStock} Pcs (Min: {detailProduct.minimumStock ?? 0})</div>
+                            <div><b>Status:</b> {detailProduct.active ? 'Aktif' : 'Non-Aktif'}</div>
+                        </div>
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '24px' }}>
+                            <button onClick={() => setDetailProduct(null)} style={styles.buttonSave}>Tutup</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '32px' }}>
                 <div>
                     <h1 style={styles.title}>Master Manajemen Produk</h1>
@@ -184,7 +226,7 @@ export const ProductDashboard = () => {
                     {displayedProducts.map((product) => (
                         <tr key={product.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
                             <td style={styles.td}>
-                                <div style={{ fontWeight: '600', color: '#1e293b' }}>{product.name}</div>
+                                <div onClick={() => handleViewDetail(product.id)} style={{ fontWeight: '600', color: '#1e293b' }}>{product.name}</div>
                                 <div style={{ fontSize: '12px', color: '#94a3b8' }}>ID: {product.id}</div>
                             </td>
                             <td style={styles.td}>
@@ -210,7 +252,7 @@ export const ProductDashboard = () => {
                             <td style={{ ...styles.td, textAlign: 'right' }}>
                                 <button onClick={() => handleStockChange(product.id, 'IN')} style={styles.buttonGreen}>+ Stok</button>
                                 <button onClick={() => handleStockChange(product.id, 'OUT')} style={styles.buttonRed}>- Stok</button>
-                                <button onClick={() => openEditModal(product)} style={styles.buttonEdit}>Edit</button>
+                                <button onClick={() => openEditModal(product.id)} style={styles.buttonEdit}>Edit</button>
                                 <button onClick={() => handleDelete(product.id)} style={styles.buttonDelete}>Hapus</button>
                             </td>
                         </tr>
