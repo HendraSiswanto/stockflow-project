@@ -31,7 +31,8 @@ public class HistoryService {
 
             while (iterator.hasNext()) {
                 History currentHistory = iterator.next();
-                HistoryResponse historyResponse = HistoryResponse.builder().id(currentHistory.getId()).date(currentHistory.getDate()).type(currentHistory.getType()).inStock(currentHistory.getInStock()).outStock(currentHistory.getOutStock()).totalStock(currentHistory.getTotalStock()).productStatus(currentHistory.getProductStatus()).description(currentHistory.getDescription()).productId(currentHistory.getProduct().getId()).productName(currentHistory.getProduct().getName()).productCategory(currentHistory.getProduct().getCategory().getName()).build();
+                HistoryResponse historyResponse = HistoryResponse.builder().id(currentHistory.getId()).date(currentHistory.getDate()).type(currentHistory.getType()).inStock(currentHistory.getInStock()).outStock(currentHistory.getOutStock()).totalStock(currentHistory.getTotalStock()).productStatus(currentHistory.getProductStatus()).description(currentHistory.getDescription()).productId(currentHistory.getProduct() != null ? currentHistory.getProduct().getId() : null).productName(currentHistory.getProduct() != null ? currentHistory.getProduct().getName() : "Produk Dihapus").productCategory((currentHistory.getProduct() != null && currentHistory.getProduct().getCategory() != null) ? currentHistory.getProduct().getCategory().getName() : "-"
+                ).build();
                 historyResponseList.add(historyResponse);
             }
             return historyResponseList;
@@ -47,7 +48,8 @@ public class HistoryService {
         if (iterator.hasNext()){
         while (iterator.hasNext()) {
             History currentHistory = iterator.next();
-            HistoryResponse historyResponse = HistoryResponse.builder().id(currentHistory.getId()).date(currentHistory.getDate()).type(currentHistory.getType()).inStock(currentHistory.getInStock()).outStock(currentHistory.getOutStock()).totalStock(currentHistory.getTotalStock()).productStatus(currentHistory.getProductStatus()).description(currentHistory.getDescription()).productId(currentHistory.getProduct().getId()).productName(currentHistory.getProduct().getName()).productCategory(currentHistory.getProduct().getCategory().getName()).build();
+            HistoryResponse historyResponse = HistoryResponse.builder().id(currentHistory.getId()).date(currentHistory.getDate()).type(currentHistory.getType()).inStock(currentHistory.getInStock()).outStock(currentHistory.getOutStock()).totalStock(currentHistory.getTotalStock()).productStatus(currentHistory.getProductStatus()).description(currentHistory.getDescription()).productId(currentHistory.getProduct() != null ? currentHistory.getProduct().getId() : null).productName(currentHistory.getProduct() != null ? currentHistory.getProduct().getName() : "Produk Dihapus").productCategory((currentHistory.getProduct() != null && currentHistory.getProduct().getCategory() != null) ? currentHistory.getProduct().getCategory().getName() : "-"
+            ).build();
             historyResponseList.add(historyResponse);
 
         }

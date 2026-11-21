@@ -7,7 +7,9 @@ import com.hendra.stockflow.backend.exception.CategoryException;
 import com.hendra.stockflow.backend.model.dto.request.CategoryRequest;
 import com.hendra.stockflow.backend.model.dto.response.CategoryResponse;
 import com.hendra.stockflow.backend.model.entity.Category;
+import com.hendra.stockflow.backend.model.entity.Product;
 import com.hendra.stockflow.backend.repository.CategoryRepository;
+import com.hendra.stockflow.backend.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,9 +24,11 @@ public class CategoryService {
 
 
     private CategoryRepository categoryRepository;
+    private ProductRepository productRepository;
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository,ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
     }
 
     public Category createNewCategory(String input){
@@ -50,9 +54,21 @@ public class CategoryService {
     }
 
     public String deleteById(Long categoryId){
-        categoryRepository.deleteById(categoryId);
+        if (categoryRepository.findById(categoryId).isPresent()){
+
+            List<Product> productWithCategory = productRepository.findByCategoryId(categoryId);
+            for(Product product : productWithCategory){
+                product.setCategory(null);
+            }
+            productRepository.saveAll(productWithCategory);
+
+            categoryRepository.deleteById(categoryId);
 
             return "Deleted Category with id : " + categoryId;
+
+        }else{
+           throw new RuntimeException("Category not found with id: " + categoryId);
+        }
 
     }
 
