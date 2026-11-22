@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9e81958-ee6c-4d0d-8b30-de4b237a9746" name="Changes" comment="new delete button for product and fixing update status issue">
-      <change afterPath="$PROJECT_DIR$/frontend/frontend/src/components/OverviewDashboard.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/frontend/src/components/Sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/frontend/src/components/ProductDashboard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/frontend/src/components/ProductDashboard.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="f9e81958-ee6c-4d0d-8b30-de4b237a9746" name="Changes" comment="ready to deploy" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -47,23 +42,23 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.5871480071569346" />
-      <entry key="MS500" value="2.226360692776573" />
-      <entry key="S2" value="4.474296150076194" />
-      <entry key="S5" value="9.002248616258063" />
-      <entry key="S10" value="14.85767513795944" />
-      <entry key="S30" value="24.28604844860057" />
-      <entry key="S60" value="28.15614788382785" />
-      <entry key="M2" value="30.440030020553845" />
-      <entry key="M5" value="31.940516294824302" />
-      <entry key="M10" value="32.46413227924259" />
-      <entry key="M15" value="32.64137751653847" />
-      <entry key="M30" value="32.81999603432601" />
-      <entry key="H1" value="32.909824071190755" />
-      <entry key="H2" value="32.95486845308096" />
-      <entry key="H4" value="32.977423318884235" />
-      <entry key="D1" value="32.996235703839766" />
-      <entry key="W1" value="32.999462206266465" />
+      <entry key="MS100" value="1.0359138969584258" />
+      <entry key="MS500" value="1.8063187939243075" />
+      <entry key="S2" value="5.295601191391638" />
+      <entry key="S5" value="10.639339490812254" />
+      <entry key="S10" value="17.1289233972556" />
+      <entry key="S30" value="27.808584915523582" />
+      <entry key="S60" value="32.29943090788873" />
+      <entry key="M2" value="34.976676854139654" />
+      <entry key="M5" value="36.74595090239621" />
+      <entry key="M10" value="37.36523763707362" />
+      <entry key="M15" value="37.57508379784158" />
+      <entry key="M30" value="37.78666573752813" />
+      <entry key="H1" value="37.8931127878032" />
+      <entry key="H2" value="37.94650124300204" />
+      <entry key="H4" value="37.97323681740715" />
+      <entry key="D1" value="37.995537550941556" />
+      <entry key="W1" value="37.999362460272465" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
@@ -85,23 +80,23 @@
       <entry key="W1" value="0.0" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="1.488513660922266" />
-      <entry key="MS500" value="2.19959989010363" />
-      <entry key="S2" value="4.460613289789943" />
-      <entry key="S5" value="8.983189197234971" />
-      <entry key="S10" value="14.837478874158048" />
-      <entry key="S30" value="24.273642541355905" />
-      <entry key="S60" value="28.148803994637795" />
-      <entry key="M2" value="30.436024047310458" />
-      <entry key="M5" value="31.938826497238022" />
-      <entry key="M10" value="32.46327216162506" />
-      <entry key="M15" value="32.64080067282415" />
-      <entry key="M30" value="32.81970588380291" />
-      <entry key="H1" value="32.909678561367976" />
-      <entry key="H2" value="32.954795589228425" />
-      <entry key="H4" value="32.97738685968497" />
-      <entry key="D1" value="32.99622962351543" />
-      <entry key="W1" value="32.9994613375558" />
+      <entry key="MS100" value="0.9148467846325075" />
+      <entry key="MS500" value="1.7605863017999615" />
+      <entry key="S2" value="5.257965548337941" />
+      <entry key="S5" value="10.607963541458991" />
+      <entry key="S10" value="17.10183734335992" />
+      <entry key="S30" value="27.793226548829185" />
+      <entry key="S60" value="32.29043628246277" />
+      <entry key="M2" value="34.971789654744676" />
+      <entry key="M5" value="36.743893292944705" />
+      <entry key="M10" value="37.36419088317243" />
+      <entry key="M15" value="37.57438190943436" />
+      <entry key="M30" value="37.78631275090039" />
+      <entry key="H1" value="37.89293578082478" />
+      <entry key="H2" value="37.946412610712315" />
+      <entry key="H4" value="37.97319246901396" />
+      <entry key="D1" value="37.99553015505966" />
+      <entry key="W1" value="37.999361403608034" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -202,7 +197,8 @@
     <MESSAGE value="fixing endpoint" />
     <MESSAGE value="fix the category name" />
     <MESSAGE value="new delete button for product and fixing update status issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="new delete button for product and fixing update status issue" />
+    <MESSAGE value="ready to deploy" />
+    <option name="LAST_COMMIT_MESSAGE" value="ready to deploy" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
