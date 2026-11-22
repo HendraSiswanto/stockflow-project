@@ -53,39 +53,33 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public String deleteById(Long categoryId){
-        if (categoryRepository.findById(categoryId).isPresent()){
+      public String deleteById(Long categoryId) {
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new CategoryException("Category not found with id: " + categoryId));
 
-            List<Product> productWithCategory = productRepository.findByCategoryId(categoryId);
-            for(Product product : productWithCategory){
-                product.setCategory(null);
-            }
-            productRepository.saveAll(productWithCategory);
-
-            categoryRepository.deleteById(categoryId);
-
-            return "Deleted Category with id : " + categoryId;
-
-        }else{
-           throw new RuntimeException("Category not found with id: " + categoryId);
+        List<Product> productWithCategory = productRepository.findByCategoryId(categoryId);
+        for (Product product : productWithCategory) {
+            product.setCategory(null);
         }
+        productRepository.saveAll(productWithCategory);
 
+        categoryRepository.delete(category);
+        return "Deleted Category with id : " + categoryId;
     }
 
-    public Category updateData(Long categoryId, String input){
+    public Category updateData(Long categoryId, String input) {
+        Category oldestCategory = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new CategoryException("Category not found with id: " + categoryId));
 
-        Category oldestCategory = categoryRepository.findById(categoryId).get();
         ObjectMapper mapper = new ObjectMapper();
         CategoryRequest categoryRequest;
-        if (categoryRepository.findById(categoryId).isPresent()){
-            try {
-                categoryRequest = mapper.readValue(input,CategoryRequest.class);
-            }catch (Exception e){
-                throw new CategoryException("Bad request, there is unknown property");
-            };
-            oldestCategory.setName(categoryRequest.getName());
-            categoryRepository.save(oldestCategory);
+        try {
+            categoryRequest = mapper.readValue(input, CategoryRequest.class);
+        } catch (Exception e) {
+            throw new CategoryException("Bad request, there is unknown property");
         }
-        return oldestCategory;
+        oldestCategory.setName(categoryRequest.getName());
+        return categoryRepository.save(oldestCategory);
     }
+
 }

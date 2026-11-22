@@ -69,6 +69,7 @@ export const ProductDashboard = () => {
             }
 
             setCategories(Array.isArray(categoriesData) ? categoriesData : []);
+            setError(null);
         } catch {
             setError("Gagal memuat data. Pastikan Backend berjalan.");
         } finally {
