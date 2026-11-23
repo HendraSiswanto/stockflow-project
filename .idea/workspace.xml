@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9e81958-ee6c-4d0d-8b30-de4b237a9746" name="Changes" comment="adjust dockerfile" />
+    <list default="true" id="f9e81958-ee6c-4d0d-8b30-de4b237a9746" name="Changes" comment="allowing null data" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,61 +42,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0000019609715016" />
-      <entry key="MS500" value="1.072192861534599" />
-      <entry key="S2" value="1.5183505505098605" />
-      <entry key="S5" value="1.7688638210887697" />
-      <entry key="S10" value="1.876848803567512" />
-      <entry key="S30" value="1.9611816847575445" />
-      <entry key="S60" value="2.1342032958244275" />
-      <entry key="M2" value="3.03127349559382" />
-      <entry key="M5" value="8.188491724856833" />
-      <entry key="M10" value="17.797384776368453" />
-      <entry key="M15" value="24.40725639853017" />
-      <entry key="M30" value="34.25416838979376" />
-      <entry key="H1" value="40.88147189731318" />
-      <entry key="H2" value="44.73446966873743" />
-      <entry key="H4" value="46.812951999565605" />
-      <entry key="D1" value="48.62771040981728" />
-      <entry key="W1" value="48.94662196118465" />
+      <entry key="MS100" value="1.0098204467440246" />
+      <entry key="MS500" value="1.4587902557720378" />
+      <entry key="S2" value="3.0945295772161" />
+      <entry key="S5" value="4.4373614345815104" />
+      <entry key="S10" value="5.127179176147014" />
+      <entry key="S30" value="5.689379604553616" />
+      <entry key="S60" value="5.990146107037989" />
+      <entry key="M2" value="6.943057624628075" />
+      <entry key="M5" value="12.116958248551226" />
+      <entry key="M10" value="21.727892661462814" />
+      <entry key="M15" value="28.345454256392493" />
+      <entry key="M30" value="38.211736510487924" />
+      <entry key="H1" value="44.856374371839195" />
+      <entry key="H2" value="48.72079236480485" />
+      <entry key="H4" value="50.805808926803095" />
+      <entry key="D1" value="52.62647559602952" />
+      <entry key="W1" value="52.94644444700588" />
     </decayedCancelled>
     <decayedSelected>
       <entry key="MS100" value="0.0" />
       <entry key="MS500" value="0.0" />
-      <entry key="S2" value="2.622464560944256E-161" />
-      <entry key="S5" value="5.854419668518548E-65" />
-      <entry key="S10" value="7.651417952587969E-33" />
-      <entry key="S30" value="1.9705190686098327E-11" />
-      <entry key="S60" value="4.43905290417881E-6" />
-      <entry key="M2" value="0.002106906002691817" />
-      <entry key="M5" value="0.08500766051654053" />
-      <entry key="M10" value="0.291560732123756" />
-      <entry key="M15" value="0.43969617544116385" />
-      <entry key="M30" value="0.6630959021447529" />
-      <entry key="H1" value="0.8143070073042185" />
-      <entry key="H2" value="0.9023896094837413" />
-      <entry key="H4" value="0.9499418979515226" />
-      <entry key="D1" value="0.9914774485600136" />
-      <entry key="W1" value="0.9987780220736033" />
+      <entry key="S2" value="9.150505040597025E-162" />
+      <entry key="S5" value="3.842182820677609E-65" />
+      <entry key="S10" value="6.1985343595705E-33" />
+      <entry key="S30" value="1.836945779779013E-11" />
+      <entry key="S60" value="4.285960545524204E-6" />
+      <entry key="M2" value="0.002070256154567401" />
+      <entry key="M5" value="0.08441305803633659" />
+      <entry key="M10" value="0.29053925386483787" />
+      <entry key="M15" value="0.43866859592950763" />
+      <entry key="M30" value="0.6623206141511131" />
+      <entry key="H1" value="0.8138308264935119" />
+      <entry key="H2" value="0.902125726544539" />
+      <entry key="H4" value="0.9498029935436816" />
+      <entry key="D1" value="0.991453284103256" />
+      <entry key="W1" value="0.9987745445533404" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="9.111652238886672E-4" />
-      <entry key="MS500" value="0.25796467620657826" />
-      <entry key="S2" value="1.031464933247972" />
-      <entry key="S5" value="1.5086600702562358" />
-      <entry key="S10" value="1.731958567647112" />
-      <entry key="S30" value="1.9091041138531966" />
-      <entry key="S60" value="2.1072024797178868" />
-      <entry key="M2" value="3.0184164619507885" />
-      <entry key="M5" value="8.264593887096623" />
-      <entry key="M10" value="18.08192568391897" />
-      <entry key="M15" value="24.841117128127543" />
-      <entry key="M30" value="34.913493975212354" />
-      <entry key="H1" value="41.69360870743945" />
-      <entry key="H2" value="45.63569158803361" />
-      <entry key="H4" value="47.76228781121577" />
-      <entry key="D1" value="49.619083610624315" />
-      <entry key="W1" value="49.945385009591455" />
+      <entry key="MS100" value="0.9292243021533314" />
+      <entry key="MS500" value="1.4222904560697387" />
+      <entry key="S2" value="2.911242889832015" />
+      <entry key="S5" value="4.25917496537145" />
+      <entry key="S10" value="5.005604773425835" />
+      <entry key="S30" value="5.6393071064980305" />
+      <entry key="S60" value="5.9632969303826595" />
+      <entry key="M2" value="6.9300301059927545" />
+      <entry key="M5" value="12.192369387008187" />
+      <entry key="M10" value="22.0113571507755" />
+      <entry key="M15" value="28.77824798195721" />
+      <entry key="M30" value="38.870264665314046" />
+      <entry key="H1" value="45.668022989849796" />
+      <entry key="H2" value="49.62174410120391" />
+      <entry key="H4" value="51.75500260164928" />
+      <entry key="D1" value="53.61782408137411" />
+      <entry key="W1" value="53.94520393886546" />
     </decayedShown>
   </component>
   <component name="ProjectColorInfo">{
@@ -108,32 +108,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/u560896/Hendra/project belajar/stockflow-project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.jshint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.jshint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2026.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/u560896/Hendra/project belajar/stockflow-project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.jshint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.jshint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2026.2.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="stockflow-project" />
@@ -205,7 +205,8 @@
     <MESSAGE value="ready to deploy" />
     <MESSAGE value="rename dockerfile" />
     <MESSAGE value="adjust dockerfile" />
-    <option name="LAST_COMMIT_MESSAGE" value="adjust dockerfile" />
+    <MESSAGE value="allowing null data" />
+    <option name="LAST_COMMIT_MESSAGE" value="allowing null data" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

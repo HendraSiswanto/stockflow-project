@@ -51,9 +51,7 @@ export const ProductDashboard = () => {
                 getProducts(currentPage, itemsPerPage),
                 getCategories()
             ]);
-            console.log("DATA MENTAH DARI BACKEND:", productsPageData);
 
-            // Ambil array barang dari properti 'content'
             if (productsPageData && Array.isArray(productsPageData.content)) {
                 setIsServerPaging(true);
                 setProducts(productsPageData.content);
@@ -70,12 +68,20 @@ export const ProductDashboard = () => {
 
             setCategories(Array.isArray(categoriesData) ? categoriesData : []);
             setError(null);
-        } catch {
-            setError("Gagal memuat data. Pastikan Backend berjalan.");
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (err: any) {
+            // Jika backend merespons 404 (data kosong), anggap array kosong agar UI tetap render
+            if (err?.response?.status === 404) {
+                setProducts([]);
+                setError(null);
+            } else {
+                setError("Terjadi kendala koneksi ke server. Anda tetap dapat mencoba menambah data.");
+            }
         } finally {
             setLoading(false);
         }
     };
+
 
 // Trigger ulang fetch setiap kali user berpindah halaman
     useEffect(() => {
@@ -173,7 +179,6 @@ export const ProductDashboard = () => {
         : products.slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage);
 
     if (loading) return <div style={styles.loading}>Memuat data...</div>;
-    if (error) return <div style={styles.error}>{error}</div>;
 
     return (
 
@@ -210,6 +215,12 @@ export const ProductDashboard = () => {
                     + Tambah Produk Baru
                 </button>
             </div>
+            {error && (
+                <div style={{ padding: '12px 16px', backgroundColor: '#fee2e2', color: '#b91c1c', borderRadius: '8px', marginBottom: '20px', fontSize: '14px' }}>
+                    {error}
+                </div>
+            )}
+
 
             <div style={styles.tableContainer}>
                 <table style={styles.table}>

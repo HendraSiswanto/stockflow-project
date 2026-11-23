@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {getCategories, createCategory, deleteCategory, updateCategory} from '../api/productApi';
+import { getCategories, createCategory, deleteCategory, updateCategory } from '../api/productApi';
 import type { Category } from '../types';
 
 export const CategoryManager = () => {
@@ -10,22 +10,27 @@ export const CategoryManager = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        const loadCategories = async () => {
-            try {
-                const data = await getCategories();
-                setCategories(data);
-            } catch {
-                setError("Gagal memuat kategori.");
-            } finally {
-                // 👇 JIKA ESLINT REWEL DI SINI, PASANG KOMENTAR INI TEPAT DI ATASNYA:
-                // eslint-disable-next-line react-hooks/set-state-in-effect
-                setLoading(false);
+    const fetchCategoriesSafe = async () => {
+        try {
+            const data = await getCategories();
+            setCategories(Array.isArray(data) ? data : []);
+            setError(null);
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (err: any) {
+            if (err?.response?.status === 404) {
+                setCategories([]);
+                setError(null);
+            } else {
+                setError("Terjadi kendala koneksi saat memuat kategori. Anda tetap dapat mencoba menambah data.");
             }
-        };
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        loadCategories();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        fetchCategoriesSafe();
     }, []);
 
     const handleCreate = async (e: React.FormEvent) => {
@@ -35,9 +40,7 @@ export const CategoryManager = () => {
         try {
             await createCategory(newCategoryName);
             setNewCategoryName('');
-            // Memanggil ulang fungsi fetch data setelah create
-            const data = await getCategories();
-            setCategories(data);
+            await fetchCategoriesSafe();
         } catch {
             alert("Gagal menambahkan kategori baru!");
         }
@@ -48,8 +51,7 @@ export const CategoryManager = () => {
 
         try {
             await deleteCategory(id);
-            const data = await getCategories();
-            setCategories(data);
+            await fetchCategoriesSafe();
         } catch {
             alert("Gagal menghapus kategori!");
         }
@@ -62,8 +64,7 @@ export const CategoryManager = () => {
             await updateCategory(id, editingName);
             setEditingId(null);
             setEditingName('');
-            const data = await getCategories();
-            setCategories(data);
+            await fetchCategoriesSafe();
         } catch {
             alert("Gagal memperbarui kategori!");
         }
@@ -75,14 +76,19 @@ export const CategoryManager = () => {
     };
 
     if (loading) return <div style={{ padding: '24px', color: '#64748b' }}>Memuat Kategori...</div>;
-    if (error) return <div style={{ padding: '24px', color: '#ef4444' }}>{error}</div>;
 
     return (
-        <div style={{ padding: '24px', backgroundColor: '#ffffff', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', marginTop: '24px' }}>
+        <div style={{ padding: '24px', backgroundColor: '#ffffff', borderRadius: '12px', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)' }}>
             <div style={{ marginBottom: '20px' }}>
                 <h2 style={{ fontSize: '22px', fontWeight: '700', color: '#1e293b', margin: '0 0 4px 0' }}>Master Manajemen Kategori</h2>
                 <p style={{ color: '#64748b', margin: 0, fontSize: '14px' }}>Kelola daftar kelompok barang kos maupun kasir POS</p>
             </div>
+
+            {error && (
+                <div style={{ padding: '12px 16px', backgroundColor: '#fee2e2', color: '#b91c1c', borderRadius: '8px', marginBottom: '20px', fontSize: '14px' }}>
+                    {error}
+                </div>
+            )}
 
             <form onSubmit={handleCreate} style={{ display: 'flex', gap: '12px', marginBottom: '24px' }}>
                 <input
@@ -100,7 +106,6 @@ export const CategoryManager = () => {
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '16px' }}>
                 {categories.map((category) => (
                     <div key={category.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#f8fafc', padding: '14px 16px', borderRadius: '10px', border: '1px solid #e2e8f0' }}>
-
                         {editingId === category.id ? (
                             <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
                                 <input
@@ -139,12 +144,11 @@ export const CategoryManager = () => {
                                 </div>
                             </div>
                         )}
-
                     </div>
                 ))}
                 {categories.length === 0 && (
                     <div style={{ color: '#94a3b8', fontSize: '14px', gridColumn: '1/-1', textAlign: 'center', padding: '12px' }}>
-                        Belum ada data kategori.
+                        Belum ada data kategori. Silakan tambah kategori baru di atas.
                     </div>
                 )}
             </div>
