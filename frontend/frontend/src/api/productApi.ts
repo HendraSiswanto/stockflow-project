@@ -35,14 +35,14 @@ export const getProductById = async (id: number): Promise<Product> => {
 // Mengirim objek JSON utuh ke backend yang menerima @RequestBody String
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createProduct = async (data: any): Promise<Product> => {
-    const response = await apiClient.post<Product>('/products', data);
+    const response = await apiClient.post<Product>('/products', {data});
     return response.data;
 };
 
 // PUT /products/{id} (Update Detail Nama/Harga Produk)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const updateProduct = async (id: number, data: any): Promise<Product> => {
-    const response = await apiClient.put<Product>(`/products/${id}`, data);
+    const response = await apiClient.put<Product>(`/products/${id}`, {data});
     return response.data;
 };
 
@@ -54,7 +54,7 @@ export const changeProductStatus = async (id: number): Promise<Product> => {
 
 // PUT /products/{id}/stock (SINKRON dengan @PutMapping manageStock Anda)
 export const updateStock = async (id: number, stockRequest: StockUpdateRequest): Promise<Product> => {
-    const response = await apiClient.put<Product>(`/products/${id}/stock`, stockRequest);
+    const response = await apiClient.put<Product>(`/products/${id}/stock`, {stockRequest});
     return response.data;
 };
 export const deleteProduct = async (id: number): Promise<string> => {
@@ -71,8 +71,8 @@ export const getCategories = async (): Promise<Category[]> => {
 
 // FIX: Mengirim string murni tanpa bungkus objek {} agar terbaca oleh @RequestBody String di Java
 export const createCategory = async (name: string): Promise<Category> => {
-    const response = await apiClient.post<Category>('/categories', name, {
-        headers: { 'Content-Type': 'text/plain' } // Paksa menggunakan text/plain agar Spring Boot tidak bingung
+    const response = await apiClient.post<Category>('/categories', {name}, {
+        headers: { 'Content-Type': 'application/json' } // Paksa menggunakan text/plain agar Spring Boot tidak bingung
     });
     return response.data;
 };
