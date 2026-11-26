@@ -35,14 +35,14 @@ export const getProductById = async (id: number): Promise<Product> => {
 // Mengirim objek JSON utuh ke backend yang menerima @RequestBody String
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createProduct = async (data: any): Promise<Product> => {
-    const response = await apiClient.post<Product>('/products', {data});
+    const response = await apiClient.post<Product>('/products', data);
     return response.data;
 };
 
 // PUT /products/{id} (Update Detail Nama/Harga Produk)
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const updateProduct = async (id: number, data: any): Promise<Product> => {
-    const response = await apiClient.put<Product>(`/products/${id}`, {data});
+    const response = await apiClient.put<Product>(`/products/${id}`, data);
     return response.data;
 };
 
@@ -54,7 +54,7 @@ export const changeProductStatus = async (id: number): Promise<Product> => {
 
 // PUT /products/{id}/stock (SINKRON dengan @PutMapping manageStock Anda)
 export const updateStock = async (id: number, stockRequest: StockUpdateRequest): Promise<Product> => {
-    const response = await apiClient.put<Product>(`/products/${id}/stock`, {stockRequest});
+    const response = await apiClient.put<Product>(`/products/${id}/stock`, stockRequest);
     return response.data;
 };
 export const deleteProduct = async (id: number): Promise<string> => {
