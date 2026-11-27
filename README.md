@@ -28,9 +28,9 @@ Pencatatan lengkap setiap transaksi stok masuk (`MASUK`) dan keluar (`KELUAR`) d
 ### 5. Dokumentasi API (Swagger UI) & Skema Database (ERD)
 Dokumentasi interaktif REST API menggunakan **Springdoc OpenAPI / Swagger** serta relasi tabel PostgreSQL (`category`, `product`, dan `history`) di **Supabase**.
 
-| Swagger UI (OpenAPI 3.1) | Database Schema (Supabase ERD) |
+| Swagger UI (OpenAPI 3.1) | Swagger UI API(OpenAPI 3.1)| Database Schema (Supabase ERD) |
 | :---: | :---: |
-| ![Swagger UI](./docs/swagger-ui.png) | ![Database ERD](./docs/database-erd.png) |
+| ![Swagger UI](./docs/swagger-ui.png) | ![Swagger UI API](./docs/swagger-ui-1.png) | ![Database ERD](./docs/database-erd.png) |
 
 ---
 
