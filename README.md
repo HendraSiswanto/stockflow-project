@@ -2,26 +2,45 @@
 
 **StockFlow** adalah aplikasi web *full-stack* untuk manajemen inventori, pemantauan stok barang, serta pencatatan riwayat mutasi keluar-masuk barang secara *real-time*. Aplikasi ini dirancang dengan antarmuka modern berbasis **Side Panel Navigation** untuk memudahkan pengelolaan stok barang usaha maupun kasir (POS).
 
+🌐 **Live Demo:** [stockflow-project-ten.vercel.app](https://vercel.app)  
+📖 **API Documentation (Swagger UI):** [Swagger OpenAPI](https://snapdeploy.app)
+
+---
+
+## 🖼️ Tampilan Aplikasi & Skema Database
+
+### 1. Overview Dashboard
+Menampilkan ringkasan total stok masuk, total stok keluar, valuasi aset stok, serta 10 produk teratas dengan indikator peringatan stok minimum.
+![Overview Dashboard](./docs/overview-dashboard.png)
+
+### 2. Master Manajemen Produk
+Pengelolaan katalog produk lengkap (CRUD), aksi cepat mutasi stok (`+ Stok` / `- Stok`), status produk (`Aktif` / `Non-Aktif`), serta paginasi data.
+![Master Produk](./docs/master-produk.png)
+
+### 3. Master Manajemen Kategori
+Pengelolaan kelompok kategori barang untuk pengorganisasian produk.
+![Manajemen Kategori](./docs/manajemen-kategori.png)
+
+### 4. Log Riwayat Mutasi (Audit Trail)
+Pencatatan lengkap setiap transaksi stok masuk (`MASUK`) dan keluar (`KELUAR`) dengan fitur filter berdasarkan produk.
+![Log Riwayat Mutasi](./docs/log-riwayat-mutasi.png)
+
+### 5. Dokumentasi API (Swagger UI) & Skema Database (ERD)
+Dokumentasi interaktif REST API menggunakan **Springdoc OpenAPI / Swagger** serta relasi tabel PostgreSQL (`category`, `product`, dan `history`) di **Supabase**.
+
+| Swagger UI (OpenAPI 3.1) | Database Schema (Supabase ERD) |
+| :---: | :---: |
+| ![Swagger UI](./docs/swagger-ui.png) | ![Database ERD](./docs/database-erd.png) |
+
 ---
 
 ## ✨ Fitur Utama
 
-### 1. 📊 Overview Dashboard
-* **Metrik Ringkasan Real-time:** Menampilkan total stok masuk (*Total In Stock*), total stok keluar (*Total Out Stock*), dan total valuasi aset stok saat ini (*Total Asset*).
-* **Highlight Produk:** Menampilkan 10 produk teratas beserta status ketersediaan stok dan peringatan visual (*low-stock alert*) jika stok berada di bawah batas minimum.
-
-### 2. 📦 Master Manajemen Produk
-* **CRUD Produk Lengkap:** Tambah, ubah (*edit*), dan hapus data produk beserta pengaturan harga beli, harga jual, batas minimum stok, serta kategori produk.
-* **Kontrol Mutasi Cepat:** Penambahan (`+ Stok`) dan pengurangan (`- Stok`) stok barang secara langsung dari tabel utama.
-* **Manajemen Status Penjualan:** Pengaturan status produk **Aktif** atau **Non-Aktif** secara instan.
-* **Paginasi Data (Pagination):** Mendukung *Server-Side Pagination* menggunakan Spring Data JPA (`Pageable`) maupun *Client-Side Pagination* untuk menjaga performa saat data berkembang besar.
-
-### 3. 🗂️ Master Manajemen Kategori
-* Pengelolaan kategori barang (Tambah, Edit *inline*, dan Hapus kategori) untuk mengelompokkan katalog produk secara terstruktur.
-
-### 4. 🕒 Log Riwayat Mutasi (Audit Trail)
-* Mencatat seluruh aktivitas perubahan stok (`IN` / `OUT`) lengkap dengan waktu kejadian, nama barang, jumlah mutasi, dan keterangan transaksi.
-* Mendukung pemfilteran riwayat berdasarkan seluruh produk maupun per produk spesifik.
+* **📊 Overview Dashboard:** Metrik ringkasan stok masuk/keluar, total aset, dan tabel *highlight* 10 produk teratas dengan *low-stock alert*.
+* **📦 Master Manajemen Produk:** Tambah, edit, hapus produk, pengaturan harga beli/jual, mutasi stok instan (`+ Stok` / `- Stok`), kontrol status aktif, dan *Server-Side Pagination* (Spring Data JPA `Pageable`).
+* **🗂️ Master Manajemen Kategori:** Tambah, edit *inline*, dan hapus kategori barang.
+* **🕒 Log Riwayat Mutasi (Audit Log):** Pelacakan riwayat perubahan stok lengkap dengan waktu transaksi, keterangan, dan filter per produk.
+* **📑 Interaktif API Docs:** Dokumentasi *endpoint* terintegrasi menggunakan Swagger UI.
 
 ---
 
@@ -29,16 +48,16 @@
 
 ### Tech Stack
 * **Frontend:** React, TypeScript (Vite), Axios
-* **Backend:** Java 17+, Spring Boot, Spring Data JPA (Hibernate), Lombok
+* **Backend:** Java 17+, Spring Boot, Spring Data JPA (Hibernate), Lombok, Springdoc OpenAPI (Swagger UI)
 * **Database:** PostgreSQL
 
 ### Infrastruktur Cloud (Production)
 
-| Layer | Layanan Cloud | Keterangan |
+| Layer | Layanan Cloud | URL / Keterangan |
 | :--- | :--- | :--- |
-| **Database** | **Supabase** | Managed PostgreSQL Database untuk penyimpanan data produk, kategori, dan riwayat mutasi. |
-| **Backend API** | **Snapdeploy** | Containerized Spring Boot REST API server (berjalan pada container cloud dengan konfigurasi port dinamis). |
-| **Frontend Web** | **Vercel** | Hosting aplikasi SPA React + TypeScript dengan CDN global dan CI/CD otomatis dari GitHub. |
+| **Database** | **Supabase** | Managed PostgreSQL Database (`category`, `product`, `history`). |
+| **Backend API** | **Snapdeploy** | Containerized Spring Boot REST API (`stockflow-project-6d72b.containers.snapdeploy.app`). |
+| **Frontend Web** | **Vercel** | Hosting aplikasi SPA React + TypeScript (`stockflow-project-ten.vercel.app`). |
 
 ---
 
@@ -64,12 +83,11 @@ backend/
         └── application.properties  # Konfigurasi database Supabase, JPA & port server
 ```
 
-
-### 2. Frontend (`src/`)
+### 2. Frontend (`frontend/src/`)
 ```text
 src/
 ├── api/
-│   └── productApi.ts           # Konfigurasi Axios & endpoint API (Products, Categories, History, Summary)
+│   └── productApi.ts           # Konfigurasi Axios & endpoint API (Products, Categories, History)
 ├── components/
 │   ├── Sidebar.tsx             # Navigasi panel samping (Side Panel)
 │   ├── OverviewDashboard.tsx   # Halaman ringkasan aset & 10 produk highlight
@@ -91,7 +109,7 @@ src/
 * **PostgreSQL** (Lokal atau koneksi langsung ke **Supabase**)
 
 ### 1. Menjalankan Backend (Spring Boot)
-1. Masuk ke direktori backend proyek Anda.
+1. Masuk ke direktori `backend/`.
 2. Konfigurasikan koneksi database dan port di `src/main/resources/application.properties`:
    ```properties
    server.port=\${PORT:8080}
@@ -117,21 +135,6 @@ src/
    npm run dev
    ```
 5. Buka browser dan akses `http://localhost:5173`.
-
----
-
-## ☁️ Konfigurasi Deployment
-
-1. **Database (Supabase):**
-   * Pastikan proyek PostgreSQL di **Supabase** dalam status *Active*.
-   * Gunakan *Connection String* JDBC PostgreSQL dari dashboard Supabase pada pengaturan *Environment Variables* backend.
-2. **Backend (Snapdeploy):**
-   * Atur `server.port=${PORT:8080}` pada `application.properties` agar sesuai dengan *port health-check* container.
-   * Tambahkan *Environment Variables* untuk `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, dan `SPRING_DATASOURCE_PASSWORD` yang mengarah ke Supabase.
-   * Pastikan konfigurasi **CORS** di Spring Boot mengizinkan origin dari domain **Vercel** frontend.
-3. **Frontend (Vercel):**
-   * Hubungkan repository GitHub ke **Vercel**.
-   * Pastikan `baseURL` pada Axios (`src/api/productApi.ts`) mengarah ke endpoint HTTPS dari **Snapdeploy**.
 
 ---
 
